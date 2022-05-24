@@ -1,19 +1,22 @@
-import json
+import logging
 
 from flask import Flask
 
 app = Flask(__name__)
+app.logger.setLevel(logging.INFO)
 
 
 @app.route('/')
 def index():
     app.logger.info('V2: get call received.')
-    return json.dumps({'message': 'Hello World'}), 200, {'ContentType': 'application/json'}
+    data = {'message': 'Hello World'}
+    return data, 200
 
 
 @app.route('/health')
 def health():
-    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+    data = {'success': True}
+    return data, 200
 
 
 app.run(host='0.0.0.0', port=8080)
